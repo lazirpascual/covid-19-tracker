@@ -4,7 +4,7 @@ import styles from "./App.module.css";
 import { fetchData } from "./api";
 
 const App = () => {
-  const [covidData, setData] = useState({});
+  const [data, setData] = useState({});
   const [country, setCountry] = useState({});
 
   useEffect(() => {
@@ -15,15 +15,22 @@ const App = () => {
     getData();
   }, []);
 
-  const handleCountryChange = (country) => {
-    console.log(country);
+  const handleCountryChange = async (country) => {
+    const fetchedData = await fetchData(country);
+
+    if (country === "global") {
+      country = null;
+    }
+    setData(fetchedData);
+    setCountry(country);
+    console.log(fetchedData);
   };
 
   return (
     <div className={styles.container}>
-      <Cards data={covidData} />
+      <Cards data={data} />
       <CountryPicker handleCountryChange={handleCountryChange} />
-      <Chart />
+      <Chart data={data} country={country} />
     </div>
   );
 };
