@@ -8,47 +8,43 @@ const Chart = ({ data: { confirmed, deaths, recovered }, country }) => {
   const [dailyData, setDailyData] = useState([]);
 
   useEffect(() => {
-    const fetchAPI = async () => {};
+    const fetchAPI = async () => {
+      setDailyData(await fetchDailyData());
+    };
+    console.log(dailyData);
 
     fetchAPI();
     console.log(country);
   }, []);
 
   const barChartTitle = country
-    ? `Current state in ${country}`
-    : `Current state Globally`;
+    ? `Current State in ${country}`
+    : `Current State Globally`;
 
-  // const lineChart = dailyData.length ? (
-  //   <Line
-  //     data={{
-  //       labels: dailyData.map(({ date }) =>
-  //         new Date(date).toLocaleDateString()
-  //       ),
-  //       datasets: [
-  //         {
-  //           data: dailyData.map((data) => data.confirmed),
-  //           label: "Infected",
-  //           borderColor: "#3333ff",
-  //           fill: true,
-  //         },
-  //         {
-  //           data: dailyData.map((data) => data.deaths),
-  //           label: "Deaths",
-  //           borderColor: "red",
-  //           backgroundColor: "rgba(255, 0, 0, 0.5)",
-  //           fill: true,
-  //         },
-  //         {
-  //           data: dailyData.map((data) => data.recovered),
-  //           label: "Recovered",
-  //           borderColor: "green",
-  //           backgroundColor: "rgba(0, 255, 0, 0.5)",
-  //           fill: true,
-  //         },
-  //       ],
-  //     }}
-  //   />
-  // ) : null;
+  const lineChart = dailyData.length ? (
+    <Line
+      data={{
+        labels: dailyData.map(({ date }) =>
+          new Date(date).toLocaleDateString()
+        ),
+        datasets: [
+          {
+            data: dailyData.map((data) => data.confirmed),
+            label: "Infected",
+            borderColor: "#3333ff",
+            fill: true,
+          },
+          {
+            data: dailyData.map((data) => data.deaths),
+            label: "Deaths",
+            borderColor: "red",
+            backgroundColor: "rgba(255, 0, 0, 0.5)",
+            fill: true,
+          },
+        ],
+      }}
+    />
+  ) : null;
 
   const barChart = confirmed ? (
     <Bar
@@ -73,7 +69,9 @@ const Chart = ({ data: { confirmed, deaths, recovered }, country }) => {
     />
   ) : null;
 
-  return <div className={styles.container}>{barChart}</div>;
+  return (
+    <div className={styles.container}>{country ? barChart : lineChart}</div>
+  );
 };
 
 export default Chart;

@@ -19,20 +19,16 @@ export const fetchData = async (country) => {
 
 export const fetchDailyData = async () => {
   try {
-    const data = await axios.get(
-      "https://api.covidtracking.com/v1/us/daily.json"
-    );
+    const { data } = await axios.get(`${url}/daily`);
 
-    console.log(data);
-
-    const modifiedData = data.map((dailyData) => ({
-      confirmed: dailyData.positive,
-      deaths: dailyData.death,
-      date: dailyData.date,
+    return data.map(({ confirmed, deaths, reportDate }) => ({
+      confirmed: confirmed.total,
+      deaths: deaths.total,
+      date: reportDate,
     }));
-
-    return data;
-  } catch (error) {}
+  } catch (error) {
+    return error;
+  }
 };
 
 export const fetchCountries = async (params) => {
