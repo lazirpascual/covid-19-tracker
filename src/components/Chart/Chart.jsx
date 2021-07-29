@@ -17,10 +17,6 @@ const Chart = ({ data: { confirmed, deaths, recovered }, country }) => {
     console.log(country);
   }, []);
 
-  const barChartTitle = country
-    ? `Current State in ${country}`
-    : `Current State Globally`;
-
   const lineChart = dailyData.length ? (
     <Line
       data={{
@@ -64,7 +60,7 @@ const Chart = ({ data: { confirmed, deaths, recovered }, country }) => {
       }}
       options={{
         legend: { display: false },
-        title: { display: true, text: barChartTitle },
+        title: { display: true, text: `Current State in ${country}` },
       }}
     />
   ) : null;
