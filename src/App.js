@@ -8,7 +8,7 @@ import coronaImage from "./images/image.png";
 
 const App = () => {
   const [data, setData] = useState({});
-  const [country, setCountry] = useState({});
+  const [country, setCountry] = useState("");
 
   useEffect(() => {
     const getData = async (params) => {
@@ -23,7 +23,6 @@ const App = () => {
 
     setData(fetchedData);
     setCountry(country);
-    console.log(fetchedData);
   };
 
   return (

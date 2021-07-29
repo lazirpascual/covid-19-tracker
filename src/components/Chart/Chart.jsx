@@ -11,7 +11,12 @@ const Chart = ({ data: { confirmed, deaths, recovered }, country }) => {
     const fetchAPI = async () => {};
 
     fetchAPI();
+    console.log(country);
   }, []);
+
+  const barChartTitle = country
+    ? `Current state in ${country}`
+    : `Current state Globally`;
 
   // const lineChart = dailyData.length ? (
   //   <Line
@@ -63,7 +68,7 @@ const Chart = ({ data: { confirmed, deaths, recovered }, country }) => {
       }}
       options={{
         legend: { display: false },
-        title: { display: true, text: `Current state in ${country}` },
+        title: { display: true, text: barChartTitle },
       }}
     />
   ) : null;
