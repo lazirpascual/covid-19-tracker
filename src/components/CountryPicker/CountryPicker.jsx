@@ -13,7 +13,7 @@ const CountryPicker = ({ handleCountryChange }) => {
     };
 
     getAllCountries();
-  }, [fetchedCountries]);
+  }, []);
 
   return (
     <FormControl className={styles.formControl}>
